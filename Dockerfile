@@ -2,6 +2,7 @@
 FROM debian:bookworm as build
 
 # Combine RUN commands to minimize layers and clean up in the same layer
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -eux; \
     apt-get update; \
     apt-get upgrade -y; \
@@ -13,11 +14,9 @@ RUN set -eux; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         mariadb-backup \
         mariadb-client; \
-    wget -O /tmp/s5cmd.deb https://github.com/peak/s5cmd/releases/download/v2.2.2/s5cmd_2.2.2_linux_amd64.deb; \
+    curl -L https://github.com/peak/s5cmd/releases/download/v2.2.2/s5cmd_2.2.2_linux_amd64.deb -o /tmp/s5cmd.deb; \
         dpkg -i /tmp/s5cmd.deb; \
         rm /tmp/s5cmd.deb; \
-    #wget -O /usr/local/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc; \
-    #chmod +x /usr/local/bin/mc; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*; \
     mkdir -p /backup; \
@@ -32,5 +31,5 @@ RUN chmod +x /perform*.sh
 FROM scratch
 COPY --from=build / /
 WORKDIR /backup
-CMD ["sh", "/perform-backup.sh"]
-
+USER 1000:1000
+CMD ["sh", "/perform-dump-backup.sh"]
