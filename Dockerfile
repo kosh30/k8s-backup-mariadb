@@ -25,10 +25,12 @@ RUN set -eux; \
 
 # Copy backup script and execute
 COPY resources/perform-backup.sh /
-RUN chmod +x /perform-backup.sh
+COPY resources/perform-dump-backup.sh /
+RUN chmod +x /perform*.sh
 
+# REDUCE IMAGE SIZE
 FROM scratch
 COPY --from=build / /
-#USER 1000
 WORKDIR /backup
 CMD ["sh", "/perform-backup.sh"]
+
