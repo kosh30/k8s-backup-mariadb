@@ -26,7 +26,6 @@ RUN if [ "$TARGETPLATFORM" == "linux/amd64" ]; then curl -L https://github.com/p
 RUN dpkg -i /tmp/s5cmd.deb; \
     rm /tmp/s5cmd.deb;
 
-# Copy backup script and execute
 COPY resources/perform-backup.sh /
 COPY resources/perform-dump-backup.sh /
 RUN chmod +x /perform*.sh
