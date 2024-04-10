@@ -92,4 +92,4 @@ jobs:
       - name: "♻️ cleanup"
         run: |
           echo ${{ steps.semantic-release.outputs.release-tag }}
-          echo ${{ steps.semantic-release.outputs.release-version 
+          echo ${{ steps.semantic-release.outputs.release-version }} 
