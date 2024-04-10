@@ -7,17 +7,20 @@ on:
       - beta
       - next
       - next-major
+  pull_request:
+    branches:
+      - main
+
 
 jobs:
   docker:
     name: Build container
     runs-on: ubuntu-latest
     steps:
-      -
-        name: "☁️ Checkout"
+      - name: "☁️ Checkout"
         uses: actions/checkout@v4
-      -
-        name: "🔧 Set up QEMU"
+
+      - name: "🔧 Set up QEMU"
         uses: docker/setup-qemu-action@v3
 
       - name: "🔧 setup buildx"
