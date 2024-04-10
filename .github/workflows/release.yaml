@@ -1,4 +1,4 @@
-name: "Release"
+name: Release container
 on:
   push:
     branches:
@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          key: "${{ runner.os }}-buildx-${{ github.sha }}"
           restore-keys: |
             ${{ runner.os }}-buildx-
 
