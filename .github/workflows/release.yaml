@@ -2,6 +2,7 @@ name: Release container
 on:
   push:
     branches:
+      - master
       - main
       - alpha
       - beta
@@ -30,9 +31,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
-          key: "${{ runner.os }}-buildx-${{ github.sha }}"
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-buildx-
+            ${{ runner.os }}-buildx-${{ github.sha }}
 
       - name: "🔧 docker meta"
         id: meta
@@ -88,7 +89,6 @@ jobs:
         uses: open-sauced/release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: "♻️ cleanup"
         run: |
           echo ${{ steps.semantic-release.outputs.release-tag }}
