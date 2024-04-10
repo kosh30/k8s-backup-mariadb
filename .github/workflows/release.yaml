@@ -82,7 +82,7 @@ jobs:
         id: semantic-release
         uses: open-sauced/release@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           SKIP_NPM_PUBLISH: true
 
       - name: "♻️ cleanup"
